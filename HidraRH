@@ -1,0 +1,28 @@
+CREATE DATABASE db_HidraRH;
+USE db_HidraRH;
+CREATE TABLE tb_funcionarios(
+    id BIGINT AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+    cargo VARCHAR(255) NOT NULL,
+	idade INT,
+    datadenascimento DATE,
+	salario DECIMAL NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO tb_funcionarios(nome, cargo, idade, datadenascimento,salario) 
+VALUES ("Joao", "estagiario", 20, "2005-03-15", 800.00),
+("Sara", "farmaceutica", 29, "1996-10-10", 5000.00),
+("Julio", "auxiliar de farmacia", 31, "1994-11-11", 2500.00),
+("Clara", "auxiliar de farmacia", 20, "2005-09-09", 2500.00),
+("Luan", "Estagiario", 28, "1955-10-10", 800.00),
+("Matheus", "auxiliar de farmacia", 20, "2005-08-08", 2500.00);
+
+SELECT * FROM tb_funcionarios;
+
+SELECT * FROM tb_funcionarios WHERE salario < 2000.00;
+
+SELECT * FROM tb_funcionarios WHERE salario > 2000.00;
+
+UPDATE tb_funcionarios  SET salario = 2500.00 WHERE Id = 1;
+SELECT * FROM tb_funcionarios WHERE Id = 1;

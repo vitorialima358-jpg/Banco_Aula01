@@ -1,0 +1,74 @@
+
+CREATE DATABASE db_farmacia_bem_estar;
+USE db_farmacia_bem_estar;
+
+CREATE TABLE tb_categorias (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    tarja VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO tb_categorias (nome, tarja) VALUES ("Antihipertensivos", "Vermelha");
+INSERT INTO tb_categorias (nome, tarja) VALUES ("Analgesicos", "Sem Tarja");
+INSERT INTO tb_categorias (nome, tarja) VALUES ("Anti-inflamatorios", "Vermelha");
+INSERT INTO tb_categorias (nome, tarja) VALUES ("Ansioliticos", "Preta");
+INSERT INTO tb_categorias (nome, tarja) VALUES ("Relaxantes Musculares", "Vermelha");
+
+CREATE TABLE tb_produtos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    fabricante VARCHAR(255),
+    valor DECIMAL(10,2) NOT NULL,
+    estoque INT NOT NULL,
+    categoria_id BIGINT NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES tb_categorias(id)
+);
+
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Hidralazina 50mg", "EMS", 32.00, 50, 1);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Dipirona 500mg", "Neo Química", 6.50, 200, 2);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Cetoprofeno 100mg", "Cimed", 22.90, 120, 3);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Alprazolam 1mg", "Medley", 89.90, 30, 4);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Ciclobenzaprina 5mg", "EMS", 18.00, 75, 5);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Omega 3 1000mg", "NowFoods", 65.00, 40, 2);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Vitamina C 500mg", "Sundown", 28.00, 90, 2);
+
+INSERT INTO tb_produtos (nome, fabricante, valor, estoque, categoria_id)
+VALUES ("Ibuprofeno 600mg", "Bayer", 15.00, 150, 3);
+
+
+SELECT * FROM tb_produtos
+WHERE valor > 50;
+
+
+SELECT * FROM tb_produtos
+WHERE valor BETWEEN 5 AND 60;
+
+
+SELECT * FROM tb_produtos
+WHERE nome LIKE "%c%" OR nome LIKE "%C%";
+
+SELECT p.nome AS Produto, p.valor, c.nome AS Categoria, c.tarja
+FROM tb_produtos p
+INNER JOIN tb_categorias c
+ON p.categoria_id = c.id;
+
+SELECT p.nome, p.valor, c.nome AS Categoria
+FROM tb_produtos p
+INNER JOIN tb_categorias c
+ON p.categoria_id = c.id
+WHERE c.nome = "Anti-inflamatorios";

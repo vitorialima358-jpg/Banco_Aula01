@@ -1,0 +1,27 @@
+CREATE DATABASE db_Escola23;
+USE db_Escola22;
+CREATE TABLE tb_Alunos(
+    id BIGINT AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+	idade INT,
+    datadenascimento DATE,
+	nota DECIMAL NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO tb_Alunos (nome, idade, datadenascimento, nota)
+VALUES ("Joao", 10, "2005-03-15", 8.00),
+("Sara", 9, "1996-10-10", 5.00),
+("Julio",9, "1994-11-11", 2.5),
+("Clara", 10, "2005-09-09", 6.00),
+("Luan", 9, "1955-10-10", 10.00),
+("Matheus", 9, "2005-08-08", 7.00);
+
+SELECT * FROM tb_Alunos;
+
+SELECT * FROM tb_Alunos WHERE nota < 7;
+
+SELECT * FROM tb_Alunos WHERE nota > 7;
+
+UPDATE tb_Alunos  SET nota = 5.00 WHERE Id = 1;
+SELECT * FROM tb_Alunos WHERE Id = 1;

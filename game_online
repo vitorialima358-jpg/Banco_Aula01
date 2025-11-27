@@ -1,0 +1,80 @@
+CREATE DATABASE db_generation_game_online;
+
+USE db_generation_game_online;
+
+
+CREATE TABLE tb_classes(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    poderBase INT NOT NULL,
+    tipo VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO tb_classes (nome, poderBase, tipo) VALUES ("Guerreiro", 1500, "Terra");
+INSERT INTO tb_classes (nome, poderBase, tipo) VALUES ("Mago", 1300, "Fogo");
+INSERT INTO tb_classes (nome, poderBase, tipo) VALUES ("Arqueiro", 1100, "Ar");
+INSERT INTO tb_classes (nome, poderBase, tipo) VALUES ("Cavaleiro", 1800, "Luz");
+INSERT INTO tb_classes (nome, poderBase, tipo) VALUES ("Assassino", 1600, "Sombras");
+
+CREATE TABLE tb_personagens(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    poder_ataque INT NOT NULL,
+    poder_defesa INT NOT NULL,
+    habilidade_especial VARCHAR(255),
+    classeid BIGINT,
+    FOREIGN KEY (classeid) REFERENCES tb_classes(id)
+);
+
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Arthas", 2500, 1800, "Golpe Divino", 4);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Kael", 3000, 1200, "Chama Ardente", 2);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Sylas", 2100, 1600, "Corte Sombrio", 5);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Cassandra", 1700, 2000, "Flecha Sagrada", 3);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Lancelot", 2600, 2300, "Investida Relâmpago", 1);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Caitlyn", 1900, 1300, "Tiro de Precisão", 3);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Corvus", 1500, 900, "Sombras Profundas", 5);
+
+INSERT INTO tb_personagens (nome, poder_ataque, poder_defesa, habilidade_especial, classeid)
+VALUES ("Magnus", 2800, 1700, "Explosão Flamejante", 2);
+
+
+
+
+SELECT * FROM tb_personagens 
+WHERE poder_ataque > 2000;
+
+
+SELECT * FROM tb_personagens 
+WHERE poder_defesa BETWEEN 1000 AND 2000;
+
+
+SELECT * FROM tb_personagens 
+WHERE nome LIKE "%c%" OR nome LIKE "%C%";
+
+SELECT tb_personagens.nome, tb_personagens.poder_ataque,
+       tb_classes.nome AS classe, tb_classes.tipo
+FROM tb_personagens
+INNER JOIN tb_classes
+ON tb_personagens.classeid = tb_classes.id;
+
+SELECT tb_personagens.nome, tb_personagens.poder_ataque, 
+       tb_classes.nome AS classe
+FROM tb_personagens
+INNER JOIN tb_classes
+ON tb_personagens.classeid = tb_classes.id
+WHERE tb_classes.nome = "Arqueiro";

@@ -1,0 +1,62 @@
+
+CREATE DATABASE db_curso_da_minha_vida;
+USE db_curso_da_minha_vida;
+
+
+CREATE TABLE tb_categoria (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(500) NOT NULL
+);
+
+
+INSERT INTO tb_categoria (nome, descricao) VALUES 
+("Programação", "Cursos focados em desenvolvimento de software."),
+("Design", "Cursos de design gráfico, UI/UX e artes visuais."),
+("Negócios", "Cursos de gestão, marketing e empreendedorismo."),
+("Idiomas", "Cursos de aprendizado de línguas."),
+("Saúde", "Cursos da área da saúde, bem-estar e primeiros socorros.");
+
+
+CREATE TABLE tb_cursos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    carga_horaria INT NOT NULL,
+    instrutor VARCHAR(255) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    categoria_id BIGINT NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES tb_categoria(id)
+);
+
+
+INSERT INTO tb_cursos (nome, carga_horaria, instrutor, valor, categoria_id) VALUES
+("Java Completo 2025", 60, "Nelio Alves", 899.90, 1),
+("Fundamentos de JavaScript", 40, "Gustavo Guanabara", 350.00, 1),
+("UX Design Profissional", 30, "Ana Laura Borges", 750.00, 2),
+("Photoshop Avançado", 20, "Marcelo Kimura", 950.99, 2),
+("Marketing Digital Essencial", 35, "Camila Porto", 420.00, 3),
+("Inglês para Iniciantes", 50, "John Smith", 680.00, 4),
+("Primeiros Socorros", 15, "Dr. Ricardo Silva", 299.90, 5),
+("Java Web com Spring Boot", 80, "Rodrigo Branas", 1200.00, 1);
+
+
+SELECT * FROM tb_cursos
+WHERE valor > 500;
+
+SELECT * FROM tb_cursos
+WHERE valor BETWEEN 600 AND 1000;
+
+SELECT * FROM tb_cursos
+WHERE nome LIKE "%j%" OR nome LIKE "%J%";
+
+
+SELECT c.nome AS Curso, c.valor, cat.nome AS Categoria, cat.descricao
+FROM tb_cursos c
+INNER JOIN tb_categoria cat
+ON c.categoria_id = cat.id;
+
+SELECT c.nome AS Curso, c.valor, cat.nome AS Categoria
+FROM tb_cursos c
+INNER JOIN tb_categorias cat
+ON c.categoria_id = cat.id
+WHERE cat.nome = "Programação";
